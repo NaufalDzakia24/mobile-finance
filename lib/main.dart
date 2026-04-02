@@ -22,7 +22,7 @@ class MyApp extends StatelessWidget {
         fontFamily: 'Poppins', // Opsional: Tambahkan font Poppins di pubspec.yaml agar lebih mirip
         scaffoldBackgroundColor: const Color(0xFFF8F9FA),
       ),
-      home: const MainNavigation(),
+      home:  MainNavigation(),
     );
   }
 }
