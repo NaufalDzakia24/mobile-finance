@@ -5,9 +5,9 @@ class TeamMember {
   final List<String> hobbies;
   final String bio;
   final String videoUrl;
-  final String email;
-  final String batch;
-  final String role;
+  final String nim;       // ← ganti dari email
+  final String age;       // ← ganti dari batch
+  final String city;      // ← ganti dari role
   final String emoji;
 
   TeamMember({
@@ -17,38 +17,36 @@ class TeamMember {
     required this.hobbies,
     required this.bio,
     required this.videoUrl,
-    required this.email,
-    required this.batch,
-    required this.role,
+    required this.nim,
+    required this.age,
+    required this.city,
     required this.emoji,
   });
 }
 
 final List<TeamMember> teamMembers = [
   TeamMember(
-    name: 'Naufal Dzakia',
-    major: 'Computer Science',
+    name: 'Naufal Dzakia Arkanudin',
+    major: 'Informatics Engineering',
     imageUrl: 'https://i.pravatar.cc/300?img=12',
-    hobbies: ['Berenang', 'Gaming', 'Music', 'Open Source'],
-    bio:
-        'Passionate full-stack developer with love for clean code and innovative solutions. Always eager to learn new technologies and build impactful products.',
+    hobbies: ['Coding', 'Gaming', 'Music', 'Open Source'],
+    bio: 'Seorang pekerja di perusahaan retail yang juga menempuh pendidikan di bidang Informatika di Universitas Al Azhar adalah sosok yang mencerminkan kerja keras dan komitmen tinggi terhadap masa depan. Di satu sisi, ia menjalani rutinitas pekerjaan yang menuntut ketelitian, tanggung jawab, dan kemampuan melayani pelanggan dengan baik. Di sisi lain, ia tetap berjuang sebagai mahasiswa yang mempelajari dunia teknologi, mulai dari pemrograman, database, hingga perkembangan sistem informasi modern.',
     videoUrl: 'https://example.com/video1',
-    email: 'aditya.rahman@university.ac.id',
-    batch: '2020',
-    role: 'Full Stack Developer',
+    nim: '0112524032',
+    age: '21',
+    city: 'Tangerang',
     emoji: '🚀',
   ),
   TeamMember(
-    name: 'Siti Nurhaliza',
-    major: 'Graphic Design',
+    name: 'Dany Triadi Widagdo',
+    major: 'Informatics Engineering',
     imageUrl: 'https://i.pravatar.cc/300?img=47',
     hobbies: ['Design', 'Photography', 'Art', 'Illustration'],
-    bio:
-        'Creative designer who loves bringing ideas to life through visual storytelling and user-centered design principles.',
+    bio: 'Seorang pekerja di suatu perusahaan makanan di cikarang, dan seorang mahasiswa informatika universitas al azhar indonesia yang sedang ingin menempuh jenjang karir yang lebih baik.',
     videoUrl: 'https://example.com/video2',
-    email: 'siti.nurhaliza@university.ac.id',
-    batch: '2020',
-    role: 'UI/UX Designer',
+    nim: '2020001002',
+    age: '22',
+    city: 'Bandung',
     emoji: '🎨',
   ),
   TeamMember(
@@ -56,12 +54,11 @@ final List<TeamMember> teamMembers = [
     major: 'Business Analytics',
     imageUrl: 'https://i.pravatar.cc/300?img=33',
     hobbies: ['Data Science', 'Reading', 'Coffee', 'Chess'],
-    bio:
-        'Data enthusiast turning numbers into insights. Love exploring patterns and solving complex business problems with analytics.',
+    bio: 'Data enthusiast turning numbers into insights and solving complex business problems.',
     videoUrl: 'https://example.com/video3',
-    email: 'budi.santoso@university.ac.id',
-    batch: '2021',
-    role: 'Data Analyst',
+    nim: '2021001003',
+    age: '21',
+    city: 'Surabaya',
     emoji: '📊',
   ),
   TeamMember(
@@ -69,38 +66,12 @@ final List<TeamMember> teamMembers = [
     major: 'UI/UX Design',
     imageUrl: 'https://i.pravatar.cc/300?img=45',
     hobbies: ['UI Design', 'Travel', 'Yoga', 'Pottery'],
-    bio:
-        'User experience advocate creating intuitive and beautiful digital experiences that users genuinely love and keep coming back to.',
+    bio: 'User experience advocate creating intuitive digital experiences users love.',
     videoUrl: 'https://example.com/video4',
-    email: 'maya.kusuma@university.ac.id',
-    batch: '2021',
-    role: 'Product Designer',
+    nim: '2021001004',
+    age: '21',
+    city: 'Yogyakarta',
     emoji: '✨',
   ),
-  TeamMember(
-    name: 'Rizki Pratama',
-    major: 'Software Engineering',
-    imageUrl: 'https://i.pravatar.cc/300?img=15',
-    hobbies: ['Mobile Dev', 'Basketball', 'Gaming', 'Flutter'],
-    bio:
-        'Mobile developer crafting seamless cross-platform experiences. Flutter enthusiast and tech explorer always on the cutting edge.',
-    videoUrl: 'https://example.com/video5',
-    email: 'rizki.pratama@university.ac.id',
-    batch: '2020',
-    role: 'Mobile Developer',
-    emoji: '📱',
-  ),
-  TeamMember(
-    name: 'Dewi Anggraini',
-    major: 'Marketing',
-    imageUrl: 'https://i.pravatar.cc/300?img=48',
-    hobbies: ['Social Media', 'Writing', 'Cooking', 'Podcast'],
-    bio:
-        'Digital marketer with a passion for storytelling and building meaningful brand connections that resonate with audiences.',
-    videoUrl: 'https://example.com/video6',
-    email: 'dewi.anggraini@university.ac.id',
-    batch: '2021',
-    role: 'Marketing Specialist',
-    emoji: '📣',
-  ),
+ 
 ];
