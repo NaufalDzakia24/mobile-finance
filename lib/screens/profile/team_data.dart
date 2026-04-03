@@ -28,7 +28,7 @@ final List<TeamMember> teamMembers = [
   TeamMember(
     name: 'Naufal Dzakia Arkanudin',
     major: 'Informatics Engineering',
-    imageUrl: 'https://i.pravatar.cc/300?img=12',
+    imageUrl: 'assets/pal.jpg',
     hobbies: ['Coding', 'Gaming', 'Music', 'Open Source'],
     bio: 'Seorang pekerja di perusahaan retail yang juga menempuh pendidikan di bidang Informatika di Universitas Al Azhar adalah sosok yang mencerminkan kerja keras dan komitmen tinggi terhadap masa depan. Di satu sisi, ia menjalani rutinitas pekerjaan yang menuntut ketelitian, tanggung jawab, dan kemampuan melayani pelanggan dengan baik. Di sisi lain, ia tetap berjuang sebagai mahasiswa yang mempelajari dunia teknologi, mulai dari pemrograman, database, hingga perkembangan sistem informasi modern.',
     videoUrl: 'https://example.com/video1',

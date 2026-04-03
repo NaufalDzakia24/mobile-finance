@@ -326,7 +326,7 @@ class _TeamCardState extends State<_TeamCard> {
                             child: CircleAvatar(
                               radius: 29,
                               backgroundImage:
-                                  NetworkImage(widget.member.imageUrl),
+                                  AssetImage(widget.member.imageUrl),
                             ),
                           ),
                         ),
@@ -609,7 +609,7 @@ class _ProfileDetailPageState extends State<ProfileDetailPage>
                   child: CircleAvatar(
                     radius: 50,
                     backgroundImage:
-                        NetworkImage(widget.member.imageUrl),
+                        AssetImage(widget.member.imageUrl),
                   ),
                 ),
               ),
@@ -1077,7 +1077,7 @@ class _ProfileDetailPageState extends State<ProfileDetailPage>
             borderRadius: BorderRadius.circular(24),
             child: Stack(
               children: [
-                Image.network(
+                Image.asset(
                   widget.member.imageUrl,
                   height: 220,
                   width: double.infinity,
