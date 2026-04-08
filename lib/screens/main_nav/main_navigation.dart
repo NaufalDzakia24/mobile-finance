@@ -7,7 +7,7 @@ import '../record/record_screen.dart';
 import '../profile/profile_screen.dart'; // 👈 Import ProfileScreen yang baru dibuat
 
 class MainNavigation extends StatefulWidget {
-  const MainNavigation({super.key});
+   MainNavigation({super.key});
 
   @override
   State<MainNavigation> createState() => _MainNavigationState();
@@ -18,21 +18,18 @@ class _MainNavigationState extends State<MainNavigation> {
 
   // Menggunakan getter agar setState bisa terpanggil dengan aman dari dalam layar lain
   List<Widget> get _screens => [
-        const HomeScreen(),
-        const StatisticsScreen(),
-        RecordScreen(
-          // Fungsi ini dikirim ke RecordScreen agar saat tombol "X" ditekan, 
-          // index kembali ke 0 (Beranda)
-          onClose: () {
-            setState(() {
-              _currentIndex = 0;
-            });
-          },
-        ),
-        const GoalsScreen(),
-        const ProfileScreen(), // 👈 Menampilkan halaman Profil di sini
-      ];
-
+  const HomeScreen(),
+  const StatisticsScreen(),
+  RecordScreen(
+    onClose: () {
+      setState(() {
+        _currentIndex = 0;
+      });
+    },
+  ),
+  const GoalsScreen(),
+  const ProfileScreen(), // 👈 sekarang boleh const kalau constructor const
+];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -44,7 +41,7 @@ class _MainNavigationState extends State<MainNavigation> {
             BoxShadow(
               color: Colors.grey.withOpacity(0.1),
               blurRadius: 10,
-              offset: const Offset(0, -5),
+              offset:  Offset(0, -5),
             ),
           ],
         ),
@@ -58,24 +55,24 @@ class _MainNavigationState extends State<MainNavigation> {
           selectedFontSize: 12,
           unselectedFontSize: 12,
           items: [
-            const BottomNavigationBarItem(
+             BottomNavigationBarItem(
               icon: Icon(Icons.home_outlined),
               activeIcon: Icon(Icons.home),
               label: 'Beranda',
             ),
-            const BottomNavigationBarItem(
+             BottomNavigationBarItem(
               icon: Icon(Icons.pie_chart_outline),
               activeIcon: Icon(Icons.pie_chart),
               label: 'Statistik',
             ),
             BottomNavigationBarItem(
               icon: Container(
-                padding: const EdgeInsets.all(8),
+                padding: EdgeInsets.all(8),
                 decoration: BoxDecoration(
                   shape: BoxShape.circle,
                   border: Border.all(color: AppColors.primaryGreen, width: 2),
                 ),
-                child: const Icon(
+                child:  Icon(
                   Icons.add,
                   color: AppColors.primaryGreen,
                   size: 20,
@@ -83,12 +80,12 @@ class _MainNavigationState extends State<MainNavigation> {
               ),
               label: 'Catat',
             ),
-            const BottomNavigationBarItem(
+             BottomNavigationBarItem(
               icon: Icon(Icons.track_changes_outlined),
               activeIcon: Icon(Icons.track_changes),
               label: 'Tujuan',
             ),
-            const BottomNavigationBarItem(
+            BottomNavigationBarItem(
               icon: Icon(Icons.person_outline),
               activeIcon: Icon(Icons.person),
               label: 'Profil',
