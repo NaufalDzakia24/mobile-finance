@@ -58,13 +58,11 @@ class ProfileScreen extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Container(
-                padding: const EdgeInsets.symmetric(
-                    horizontal: 12, vertical: 6),
+                padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
                 decoration: BoxDecoration(
                   color: _accent.withOpacity(0.12),
                   borderRadius: BorderRadius.circular(20),
-                  border: Border.all(
-                      color: _accent.withOpacity(0.3), width: 1),
+                  border: Border.all(color: _accent.withOpacity(0.3), width: 1),
                 ),
                 child: Row(
                   children: [
@@ -103,8 +101,7 @@ class ProfileScreen extends StatelessWidget {
                     ),
                   ],
                 ),
-                child: Icon(Icons.search_rounded,
-                    color: _textPrimary, size: 20),
+                child: Icon(Icons.search_rounded, color: _textPrimary, size: 20),
               ),
             ],
           ),
@@ -331,15 +328,16 @@ class _TeamCardState extends State<_TeamCard> {
                           ),
                         ),
                         Positioned(
-                          bottom: -2, right: -2,
+                          bottom: -2,
+                          right: -2,
                           child: Container(
-                            width: 22, height: 22,
+                            width: 22,
+                            height: 22,
                             decoration: BoxDecoration(
                               color: Colors.white,
                               shape: BoxShape.circle,
                               border: Border.all(
-                                  color: const Color(0xFFE8F5EF),
-                                  width: 1.5),
+                                  color: const Color(0xFFE8F5EF), width: 1.5),
                               boxShadow: [
                                 BoxShadow(
                                   color: Colors.black.withOpacity(0.06),
@@ -554,9 +552,11 @@ class _ProfileDetailPageState extends State<ProfileDetailPage>
         ),
         // Decorative circle
         Positioned(
-          top: -40, right: -40,
+          top: -40,
+          right: -40,
           child: Container(
-            width: 180, height: 180,
+            width: 180,
+            height: 180,
             decoration: BoxDecoration(
               shape: BoxShape.circle,
               color: _gradient[0].withOpacity(0.08),
@@ -608,8 +608,7 @@ class _ProfileDetailPageState extends State<ProfileDetailPage>
                       shape: BoxShape.circle, color: Colors.white),
                   child: CircleAvatar(
                     radius: 50,
-                    backgroundImage:
-                        AssetImage(widget.member.imageUrl),
+                    backgroundImage: AssetImage(widget.member.imageUrl),
                   ),
                 ),
               ),
@@ -649,22 +648,20 @@ class _ProfileDetailPageState extends State<ProfileDetailPage>
               const SizedBox(height: 3),
               Text(
                 widget.member.major,
-                style: TextStyle(
-                    fontSize: 13, color: _textSecondary),
+                style: TextStyle(fontSize: 13, color: _textSecondary),
               ),
               const SizedBox(height: 16),
               // Quick stats chips
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  _quickChip(Icons.badge_outlined,
-                      widget.member.nim, _gradient[0]),
+                  _quickChip(
+                      Icons.badge_outlined, widget.member.nim, _gradient[0]),
                   const SizedBox(width: 8),
                   _quickChip(Icons.cake_outlined,
                       '${widget.member.age} tahun', _gradient[1]),
                   const SizedBox(width: 8),
-                  _quickChip(Icons.location_on_outlined,
-                      widget.member.city,
+                  _quickChip(Icons.location_on_outlined, widget.member.city,
                       const Color(0xFF00C896)),
                 ],
               ),
@@ -756,10 +753,10 @@ class _ProfileDetailPageState extends State<ProfileDetailPage>
           ),
           labelColor: Colors.white,
           unselectedLabelColor: _textSecondary,
-          labelStyle: const TextStyle(
-              fontWeight: FontWeight.w800, fontSize: 13),
-          unselectedLabelStyle: const TextStyle(
-              fontWeight: FontWeight.w600, fontSize: 13),
+          labelStyle:
+              const TextStyle(fontWeight: FontWeight.w800, fontSize: 13),
+          unselectedLabelStyle:
+              const TextStyle(fontWeight: FontWeight.w600, fontSize: 13),
           tabs: const [
             Tab(text: 'Info'),
             Tab(text: 'Hobbies'),
@@ -814,8 +811,7 @@ class _ProfileDetailPageState extends State<ProfileDetailPage>
                     children: [
                       ShaderMask(
                         shaderCallback: (b) =>
-                            LinearGradient(colors: _gradient)
-                                .createShader(b),
+                            LinearGradient(colors: _gradient).createShader(b),
                         child: const Text(
                           'ABOUT ME',
                           style: TextStyle(
@@ -853,24 +849,23 @@ class _ProfileDetailPageState extends State<ProfileDetailPage>
             ),
           ),
           const SizedBox(height: 10),
-          _infoRow(Icons.badge_outlined, 'NIM',
-              widget.member.nim, _gradient[0]),
+          _infoRow(
+              Icons.badge_outlined, 'NIM', widget.member.nim, _gradient[0]),
           const SizedBox(height: 10),
-          _infoRow(Icons.cake_outlined, 'Usia',
-              '${widget.member.age} tahun', _gradient[1]),
+          _infoRow(Icons.cake_outlined, 'Usia', '${widget.member.age} tahun',
+              _gradient[1]),
           const SizedBox(height: 10),
           _infoRow(Icons.location_on_outlined, 'Kota Kelahiran',
               widget.member.city, const Color(0xFF00C896)),
           const SizedBox(height: 10),
-          _infoRow(Icons.school_outlined, 'Jurusan',
-              widget.member.major, const Color(0xFF4F8EF7)),
+          _infoRow(Icons.school_outlined, 'Jurusan', widget.member.major,
+              const Color(0xFF4F8EF7)),
         ],
       ),
     );
   }
 
-  Widget _infoRow(
-      IconData icon, String label, String value, Color color) {
+  Widget _infoRow(IconData icon, String label, String value, Color color) {
     return Container(
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
@@ -939,7 +934,6 @@ class _ProfileDetailPageState extends State<ProfileDetailPage>
             ),
           ),
           const SizedBox(height: 16),
-          // Hobby chips dengan warna berbeda tiap chip
           Wrap(
             spacing: 10,
             runSpacing: 10,
@@ -954,19 +948,20 @@ class _ProfileDetailPageState extends State<ProfileDetailPage>
               ];
               final color = colors[e.key % colors.length];
               return Container(
-                padding: const EdgeInsets.symmetric(
-                    horizontal: 16, vertical: 10),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
                 decoration: BoxDecoration(
                   color: color.withOpacity(0.09),
                   borderRadius: BorderRadius.circular(14),
-                  border: Border.all(
-                      color: color.withOpacity(0.25), width: 1.5),
+                  border:
+                      Border.all(color: color.withOpacity(0.25), width: 1.5),
                 ),
                 child: Row(
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     Container(
-                      width: 6, height: 6,
+                      width: 6,
+                      height: 6,
                       decoration: BoxDecoration(
                         color: color,
                         shape: BoxShape.circle,
@@ -1031,8 +1026,8 @@ class _ProfileDetailPageState extends State<ProfileDetailPage>
                         ),
                         Text(
                           'about ${widget.member.name.split(' ').first}',
-                          style: TextStyle(
-                              fontSize: 12, color: _textSecondary),
+                          style:
+                              TextStyle(fontSize: 12, color: _textSecondary),
                         ),
                       ],
                     ),
@@ -1100,7 +1095,8 @@ class _ProfileDetailPageState extends State<ProfileDetailPage>
                 Positioned.fill(
                   child: Center(
                     child: Container(
-                      width: 64, height: 64,
+                      width: 64,
+                      height: 64,
                       decoration: BoxDecoration(
                         shape: BoxShape.circle,
                         gradient: LinearGradient(colors: _gradient),
@@ -1117,7 +1113,8 @@ class _ProfileDetailPageState extends State<ProfileDetailPage>
                   ),
                 ),
                 Positioned(
-                  bottom: 14, left: 16,
+                  bottom: 14,
+                  left: 16,
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -1143,7 +1140,8 @@ class _ProfileDetailPageState extends State<ProfileDetailPage>
                 ),
                 // Duration badge
                 Positioned(
-                  top: 14, right: 14,
+                  top: 14,
+                  right: 14,
                   child: Container(
                     padding: const EdgeInsets.symmetric(
                         horizontal: 10, vertical: 5),

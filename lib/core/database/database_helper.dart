@@ -5,34 +5,38 @@ import '../../../models/transaction_model.dart';
 import '../../../models/profile_model.dart';
 
 class DatabaseHelper {
+  // Singleton instance untuk memastikan hanya ada satu koneksi database
   static final DatabaseHelper instance = DatabaseHelper._init();
   static Database? _database;
 
   DatabaseHelper._init();
 
+  // Getter database dengan sistem lazy loading
   Future<Database> get database async {
     if (_database != null) return _database!;
     _database = await _initDB('finance_app.db');
     return _database!;
   }
 
+  // Inisialisasi database dan konfigurasi versi
   Future<Database> _initDB(String filePath) async {
     final dbPath = await getDatabasesPath();
     final path = join(dbPath, filePath);
 
     return await openDatabase(
       path,
-      version: 6, // Versi 6 sudah lengkap dengan Bio & Hobi
+      version: 7, // Versi terbaru dengan dukungan Bio, Hobby, & Video
       onCreate: _createDB,
       onUpgrade: _upgradeDB,
     );
   }
 
-  // Dipanggil KETIKA APLIKASI BARU DI-INSTALL (Fresh Install)
+  // Membuat tabel-tabel utama saat aplikasi pertama kali dijalankan (Fresh Install)
   Future _createDB(Database db, int version) async {
     await db.execute('CREATE TABLE goals (id INTEGER PRIMARY KEY AUTOINCREMENT, category TEXT NOT NULL, title TEXT NOT NULL, currentAmount REAL NOT NULL, targetAmount REAL NOT NULL)');
     await db.execute('CREATE TABLE transactions (id INTEGER PRIMARY KEY AUTOINCREMENT, title TEXT NOT NULL, category TEXT NOT NULL, date TEXT NOT NULL, amount REAL NOT NULL, isExpense INTEGER NOT NULL)');
 
+    // Hati-hati: Pastikan ada koma di setiap akhir baris kecuali yang paling bawah
     await db.execute('''
       CREATE TABLE profile (
         id INTEGER PRIMARY KEY AUTOINCREMENT, 
@@ -44,10 +48,12 @@ class DatabaseHelper {
         gender TEXT NOT NULL,
         profilePicture TEXT NOT NULL,
         bio TEXT NOT NULL,
-        hobby TEXT NOT NULL
+        hobby TEXT NOT NULL,
+        videoPath TEXT NOT NULL
       )
     ''');
     
+    // Seed data: Mengisi profil default saat database pertama kali dibuat
     await db.insert('profile', {
       'fullName': 'Pengguna Baru',
       'nickname': 'Pengguna',
@@ -57,16 +63,20 @@ class DatabaseHelper {
       'gender': 'Laki-laki',
       'profilePicture': '',
       'bio': 'Fokus mendalami Web Development & Flutter', 
-      'hobby': 'Membuat Chrome Extension', 
+      'hobby': 'Membuat Chrome Extension',
+      'videoPath': '', // Default kosong
     });
   }
 
-  // Dipanggil KETIKA UPDATE DARI VERSI LAMA (Biar data goals/transaksi ga ilang & ga error)
+  // Menangani perubahan struktur tabel (migrasi) jika user update aplikasi
+  // Fungsi ini menggabungkan semua logika upgrade versi sebelumnya
   Future _upgradeDB(Database db, int oldVersion, int newVersion) async {
+    print("DEBUG: Mengupgrade DB dari $oldVersion ke $newVersion");
+
+    // Jika update dari versi yang sangat lama (< 6)
     if (oldVersion < 6) {
       await db.execute('DROP TABLE IF EXISTS profile'); 
       
-      // BIKIN ULANG TABEL PROFILE SAJA (Jangan panggil _createDB biar ga bentrok)
       await db.execute('''
         CREATE TABLE profile (
           id INTEGER PRIMARY KEY AUTOINCREMENT, 
@@ -94,9 +104,18 @@ class DatabaseHelper {
         'hobby': 'Membuat Chrome Extension', 
       });
     }
+
+    // Jika update dari versi 6 ke 7 (Penambahan Fitur Video)
+    if (oldVersion < 7) {
+      // Tambahkan DEFAULT '' agar SQLite tidak error saat membaca baris lama
+      await db.execute("ALTER TABLE profile ADD COLUMN videoPath TEXT DEFAULT ''");
+      print("DEBUG: Kolom videoPath berhasil ditambahkan ke tabel profile");
+    }
   }
 
-  // ================= FUNGSI UNTUK PROFILE =================
+  // ================= FUNGSI PROFILE =================
+
+  // Mengambil data profil tunggal (ID 1)
   Future<ProfileModel> getProfile() async {
     final db = await instance.database;
     final maps = await db.query('profile', where: 'id = ?', whereArgs: [1]);
@@ -104,26 +123,26 @@ class DatabaseHelper {
     if (maps.isNotEmpty) {
       return ProfileModel.fromMap(maps.first);
     } else {
+      // Pastikan semua parameter Model terpenuhi jika database kosong
       return ProfileModel(
         fullName: 'Pengguna', nickname: 'User', email: '-', phoneNumber: '-',
         birthDate: '-', gender: 'Laki-laki', profilePicture: '',
-        bio: '-', hobby: '-'
+        bio: '-', hobby: '-', videoPath: ''
       );
     }
   }
 
+  // Memperbarui informasi profil pengguna
   Future<int> updateProfile(ProfileModel profile) async {
     final db = await instance.database;
     return await db.update('profile', profile.toMap(), where: 'id = ?', whereArgs: [1]);
   }
 
-  // ================= FUNGSI UNTUK GOALS =================
+  // ================= FUNGSI GOALS (TARGET) =================
 
   Future<int> insertGoal(GoalModel goal) async {
     final db = await instance.database;
-    final id = await db.insert('goals', goal.toMap());
-    print('DEBUG: Berhasil simpan ke DB dengan ID: $id');
-    return id;
+    return await db.insert('goals', goal.toMap());
   }
 
   Future<List<GoalModel>> getAllGoals() async {
@@ -132,13 +151,14 @@ class DatabaseHelper {
     return result.map((json) => GoalModel.fromMap(json)).toList();
   }
 
-  // ================= FUNGSI UNTUK TRANSAKSI =================
+  // ================= FUNGSI TRANSAKSI =================
 
   Future<int> insertTransaction(TransactionModel transaction) async {
     final db = await instance.database;
     return await db.insert('transactions', transaction.toMap());
   }
 
+  // Mengambil riwayat transaksi, mendukung parameter 'limit' untuk Dashboard
   Future<List<TransactionModel>> getTransactions({int? limit}) async {
     final db = await instance.database;
     final result = await db.query(
@@ -149,16 +169,15 @@ class DatabaseHelper {
     return result.map((json) => TransactionModel.fromMap(json)).toList();
   }
 
+  // Menghitung ringkasan Pemasukan, Pengeluaran, dan Saldo Akhir
   Future<Map<String, double>> getBalanceSummary() async {
     final db = await instance.database;
 
-    // Total Pemasukan
     final incomeQuery = await db.rawQuery(
       "SELECT SUM(amount) as total FROM transactions WHERE isExpense = 0",
     );
     double income = (incomeQuery.first['total'] as num?)?.toDouble() ?? 0.0;
 
-    // Total Pengeluaran
     final expenseQuery = await db.rawQuery(
       "SELECT SUM(amount) as total FROM transactions WHERE isExpense = 1",
     );
