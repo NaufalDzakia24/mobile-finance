@@ -1,5 +1,5 @@
 class ProfileModel {
-  // 1. KERANGKA DATA
+  // KERANGKA DATA
   // Kumpulan atribut yang mendefinisikan sebuah profil. 
   // 'id' boleh kosong (nullable) karena nanti diisi otomatis oleh database.
   final int? id;
@@ -12,6 +12,7 @@ class ProfileModel {
   final String profilePicture;
   final String bio;   
   final String hobby; 
+  final String videoPath;
 
   // Constructor: Syarat wajib saat kita mau membuat objek/data profil baru.
   ProfileModel({
@@ -25,9 +26,10 @@ class ProfileModel {
     required this.profilePicture,
     required this.bio,   
     required this.hobby, 
+    required this.videoPath,
   });
 
-  // 2. FUNGSI UNTUK MENYIMPAN KE DATABASE (Aplikasi -> Database)
+  // FUNGSI UNTUK MENYIMPAN KE DATABASE (Aplikasi -> Database)
   // Menerjemahkan objek ProfileModel menjadi Map (format 'Key': Value).
   // Database SQLite nggak paham objek Dart, dia cuma paham format Map ini.
   Map<String, dynamic> toMap() {
@@ -42,10 +44,11 @@ class ProfileModel {
       'profilePicture': profilePicture,
       'bio': bio,     
       'hobby': hobby, 
+      'videoPath': videoPath,
     };
   }
 
-  // 3. FUNGSI UNTUK MENGAMBIL DARI DATABASE (Database -> Aplikasi)
+  // FUNGSI UNTUK MENGAMBIL DARI DATABASE (Database -> Aplikasi)
   // Kebalikan dari toMap. Mengambil data mentah dari SQLite dan merakitnya 
   // kembali menjadi objek ProfileModel yang utuh biar bisa dipakai di UI.
   factory ProfileModel.fromMap(Map<String, dynamic> map) {
@@ -61,7 +64,8 @@ class ProfileModel {
       gender: map['gender'] ?? '',
       profilePicture: map['profilePicture'] ?? '',
       bio: map['bio'] ?? '',     
-      hobby: map['hobby'] ?? '', 
+      hobby: map['hobby'] ?? '',
+      videoPath: map['videoPath'] ?? '', 
     );
   }
 }

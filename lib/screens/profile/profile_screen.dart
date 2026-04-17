@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'dart:ui';
+import 'package:video_player/video_player.dart';
 import 'team_data.dart';
 
 // ═══════════════════════════════════════════
@@ -46,7 +47,7 @@ class ProfileScreen extends StatelessWidget {
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
           colors: [
-            _accent.withOpacity(0.12),
+            _accent.withValues(alpha: 0.12),
             _bg,
           ],
         ),
@@ -58,13 +59,11 @@ class ProfileScreen extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Container(
-                padding: const EdgeInsets.symmetric(
-                    horizontal: 12, vertical: 6),
+                padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
                 decoration: BoxDecoration(
-                  color: _accent.withOpacity(0.12),
+                  color: _accent.withValues(alpha: 0.12),
                   borderRadius: BorderRadius.circular(20),
-                  border: Border.all(
-                      color: _accent.withOpacity(0.3), width: 1),
+                  border: Border.all(color: _accent.withValues(alpha: 0.3), width: 1),
                 ),
                 child: Row(
                   children: [
@@ -97,14 +96,13 @@ class ProfileScreen extends StatelessWidget {
                   border: Border.all(color: _border, width: 1.5),
                   boxShadow: [
                     BoxShadow(
-                      color: _accent.withOpacity(0.08),
+                      color: _accent.withValues(alpha: 0.08),
                       blurRadius: 12,
                       offset: const Offset(0, 4),
                     ),
                   ],
                 ),
-                child: Icon(Icons.search_rounded,
-                    color: _textPrimary, size: 20),
+                child: Icon(Icons.search_rounded, color: _textPrimary, size: 20),
               ),
             ],
           ),
@@ -181,10 +179,10 @@ class ProfileScreen extends StatelessWidget {
         decoration: BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.circular(16),
-          border: Border.all(color: color.withOpacity(0.2), width: 1.5),
+          border: Border.all(color: color.withValues(alpha: 0.2), width: 1.5),
           boxShadow: [
             BoxShadow(
-              color: color.withOpacity(0.06),
+              color: color.withValues(alpha: 0.06),
               blurRadius: 12,
               offset: const Offset(0, 4),
             ),
@@ -285,7 +283,7 @@ class _TeamCardState extends State<_TeamCard> {
             border: Border.all(color: _border, width: 1.5),
             boxShadow: [
               BoxShadow(
-                color: accent.withOpacity(0.07),
+                color: accent.withValues(alpha: 0.07),
                 blurRadius: 20,
                 offset: const Offset(0, 6),
               ),
@@ -293,12 +291,11 @@ class _TeamCardState extends State<_TeamCard> {
           ),
           child: Column(
             children: [
-              // Top colored strip
               Container(
                 height: 4,
                 decoration: BoxDecoration(
                   gradient: LinearGradient(
-                    colors: [accent, accent.withOpacity(0.0)],
+                    colors: [accent, accent.withValues(alpha: 0.0)],
                   ),
                   borderRadius: const BorderRadius.vertical(
                       top: Radius.circular(24)),
@@ -308,7 +305,6 @@ class _TeamCardState extends State<_TeamCard> {
                 padding: const EdgeInsets.fromLTRB(18, 14, 18, 18),
                 child: Row(
                   children: [
-                    // Avatar
                     Stack(
                       clipBehavior: Clip.none,
                       children: [
@@ -317,7 +313,7 @@ class _TeamCardState extends State<_TeamCard> {
                           decoration: BoxDecoration(
                             shape: BoxShape.circle,
                             gradient: LinearGradient(
-                              colors: [accent, accent.withOpacity(0.3)],
+                              colors: [accent, accent.withValues(alpha: 0.3)],
                             ),
                           ),
                           child: CircleAvatar(
@@ -331,18 +327,19 @@ class _TeamCardState extends State<_TeamCard> {
                           ),
                         ),
                         Positioned(
-                          bottom: -2, right: -2,
+                          bottom: -2,
+                          right: -2,
                           child: Container(
-                            width: 22, height: 22,
+                            width: 22,
+                            height: 22,
                             decoration: BoxDecoration(
                               color: Colors.white,
                               shape: BoxShape.circle,
                               border: Border.all(
-                                  color: const Color(0xFFE8F5EF),
-                                  width: 1.5),
+                                  color: const Color(0xFFE8F5EF), width: 1.5),
                               boxShadow: [
                                 BoxShadow(
-                                  color: Colors.black.withOpacity(0.06),
+                                  color: Colors.black.withValues(alpha: 0.06),
                                   blurRadius: 4,
                                 )
                               ],
@@ -356,7 +353,6 @@ class _TeamCardState extends State<_TeamCard> {
                       ],
                     ),
                     const SizedBox(width: 14),
-                    // Info
                     Expanded(
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -371,22 +367,6 @@ class _TeamCardState extends State<_TeamCard> {
                                     fontWeight: FontWeight.w800,
                                     color: _textPrimary,
                                     letterSpacing: -0.3,
-                                  ),
-                                ),
-                              ),
-                              Container(
-                                padding: const EdgeInsets.symmetric(
-                                    horizontal: 8, vertical: 3),
-                                decoration: BoxDecoration(
-                                  color: accent.withOpacity(0.1),
-                                  borderRadius: BorderRadius.circular(8),
-                                ),
-                                child: Text(
-                                  '${widget.member.age} yo',
-                                  style: TextStyle(
-                                    fontSize: 10,
-                                    color: accent,
-                                    fontWeight: FontWeight.w700,
                                   ),
                                 ),
                               ),
@@ -450,7 +430,7 @@ class _TeamCardState extends State<_TeamCard> {
                     Container(
                       padding: const EdgeInsets.all(8),
                       decoration: BoxDecoration(
-                        color: accent.withOpacity(0.08),
+                        color: accent.withValues(alpha: 0.08),
                         borderRadius: BorderRadius.circular(10),
                       ),
                       child: Icon(Icons.arrow_forward_rounded,
@@ -536,7 +516,6 @@ class _ProfileDetailPageState extends State<ProfileDetailPage>
   Widget _buildHeroSection(BuildContext context) {
     return Stack(
       children: [
-        // Hero gradient background
         Container(
           height: 280,
           decoration: BoxDecoration(
@@ -544,29 +523,29 @@ class _ProfileDetailPageState extends State<ProfileDetailPage>
               begin: Alignment.topLeft,
               end: Alignment.bottomRight,
               colors: [
-                _gradient[0].withOpacity(0.18),
-                _gradient[1].withOpacity(0.08),
+                _gradient[0].withValues(alpha: 0.18),
+                _gradient[1].withValues(alpha: 0.08),
                 _bg,
               ],
               stops: const [0.0, 0.6, 1.0],
             ),
           ),
         ),
-        // Decorative circle
         Positioned(
-          top: -40, right: -40,
+          top: -40,
+          right: -40,
           child: Container(
-            width: 180, height: 180,
+            width: 180,
+            height: 180,
             decoration: BoxDecoration(
               shape: BoxShape.circle,
-              color: _gradient[0].withOpacity(0.08),
+              color: _gradient[0].withValues(alpha: 0.08),
             ),
           ),
         ),
         SafeArea(
           child: Column(
             children: [
-              // Top bar
               Padding(
                 padding: const EdgeInsets.fromLTRB(20, 12, 20, 0),
                 child: Row(
@@ -588,7 +567,6 @@ class _ProfileDetailPageState extends State<ProfileDetailPage>
                 ),
               ),
               const SizedBox(height: 20),
-              // Avatar
               Container(
                 padding: const EdgeInsets.all(4),
                 decoration: BoxDecoration(
@@ -596,7 +574,7 @@ class _ProfileDetailPageState extends State<ProfileDetailPage>
                   gradient: LinearGradient(colors: _gradient),
                   boxShadow: [
                     BoxShadow(
-                      color: _gradient[0].withOpacity(0.3),
+                      color: _gradient[0].withValues(alpha: 0.3),
                       blurRadius: 20,
                       offset: const Offset(0, 8),
                     ),
@@ -608,13 +586,11 @@ class _ProfileDetailPageState extends State<ProfileDetailPage>
                       shape: BoxShape.circle, color: Colors.white),
                   child: CircleAvatar(
                     radius: 50,
-                    backgroundImage:
-                        AssetImage(widget.member.imageUrl),
+                    backgroundImage: AssetImage(widget.member.imageUrl),
                   ),
                 ),
               ),
               const SizedBox(height: 14),
-              // Name + emoji
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -633,7 +609,6 @@ class _ProfileDetailPageState extends State<ProfileDetailPage>
                 ],
               ),
               const SizedBox(height: 6),
-              // City gradient
               ShaderMask(
                 shaderCallback: (b) =>
                     LinearGradient(colors: _gradient).createShader(b),
@@ -649,22 +624,16 @@ class _ProfileDetailPageState extends State<ProfileDetailPage>
               const SizedBox(height: 3),
               Text(
                 widget.member.major,
-                style: TextStyle(
-                    fontSize: 13, color: _textSecondary),
+                style: TextStyle(fontSize: 13, color: _textSecondary),
               ),
               const SizedBox(height: 16),
-              // Quick stats chips
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  _quickChip(Icons.badge_outlined,
-                      widget.member.nim, _gradient[0]),
+                  _quickChip(
+                      Icons.badge_outlined, widget.member.nim, _gradient[0]),
                   const SizedBox(width: 8),
-                  _quickChip(Icons.cake_outlined,
-                      '${widget.member.age} tahun', _gradient[1]),
-                  const SizedBox(width: 8),
-                  _quickChip(Icons.location_on_outlined,
-                      widget.member.city,
+                  _quickChip(Icons.location_on_outlined, widget.member.city,
                       const Color(0xFF00C896)),
                 ],
               ),
@@ -680,9 +649,9 @@ class _ProfileDetailPageState extends State<ProfileDetailPage>
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
       decoration: BoxDecoration(
-        color: color.withOpacity(0.1),
+        color: color.withValues(alpha: 0.1),
         borderRadius: BorderRadius.circular(12),
-        border: Border.all(color: color.withOpacity(0.2), width: 1.5),
+        border: Border.all(color: color.withValues(alpha: 0.2), width: 1.5),
       ),
       child: Row(
         mainAxisSize: MainAxisSize.min,
@@ -713,7 +682,7 @@ class _ProfileDetailPageState extends State<ProfileDetailPage>
           border: Border.all(color: _border, width: 1.5),
           boxShadow: [
             BoxShadow(
-              color: Colors.black.withOpacity(0.04),
+              color: Colors.black.withValues(alpha: 0.04),
               blurRadius: 8,
               offset: const Offset(0, 2),
             ),
@@ -735,7 +704,7 @@ class _ProfileDetailPageState extends State<ProfileDetailPage>
           border: Border.all(color: _border, width: 1.5),
           boxShadow: [
             BoxShadow(
-              color: Colors.black.withOpacity(0.04),
+              color: Colors.black.withValues(alpha: 0.04),
               blurRadius: 10,
               offset: const Offset(0, 2),
             ),
@@ -748,7 +717,7 @@ class _ProfileDetailPageState extends State<ProfileDetailPage>
             borderRadius: BorderRadius.circular(12),
             boxShadow: [
               BoxShadow(
-                color: _gradient[0].withOpacity(0.3),
+                color: _gradient[0].withValues(alpha: 0.3),
                 blurRadius: 10,
                 offset: const Offset(0, 2),
               ),
@@ -756,10 +725,10 @@ class _ProfileDetailPageState extends State<ProfileDetailPage>
           ),
           labelColor: Colors.white,
           unselectedLabelColor: _textSecondary,
-          labelStyle: const TextStyle(
-              fontWeight: FontWeight.w800, fontSize: 13),
-          unselectedLabelStyle: const TextStyle(
-              fontWeight: FontWeight.w600, fontSize: 13),
+          labelStyle:
+              const TextStyle(fontWeight: FontWeight.w800, fontSize: 13),
+          unselectedLabelStyle:
+              const TextStyle(fontWeight: FontWeight.w600, fontSize: 13),
           tabs: const [
             Tab(text: 'Info'),
             Tab(text: 'Hobbies'),
@@ -777,7 +746,6 @@ class _ProfileDetailPageState extends State<ProfileDetailPage>
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          // Bio card with accent left border
           Container(
             padding: const EdgeInsets.all(20),
             decoration: BoxDecoration(
@@ -786,7 +754,7 @@ class _ProfileDetailPageState extends State<ProfileDetailPage>
               border: Border.all(color: _border, width: 1.5),
               boxShadow: [
                 BoxShadow(
-                  color: Colors.black.withOpacity(0.04),
+                  color: Colors.black.withValues(alpha: 0.04),
                   blurRadius: 12,
                   offset: const Offset(0, 4),
                 ),
@@ -814,8 +782,7 @@ class _ProfileDetailPageState extends State<ProfileDetailPage>
                     children: [
                       ShaderMask(
                         shaderCallback: (b) =>
-                            LinearGradient(colors: _gradient)
-                                .createShader(b),
+                            LinearGradient(colors: _gradient).createShader(b),
                         child: const Text(
                           'ABOUT ME',
                           style: TextStyle(
@@ -842,7 +809,6 @@ class _ProfileDetailPageState extends State<ProfileDetailPage>
             ),
           ),
           const SizedBox(height: 16),
-          // Info grid
           Text(
             'DETAIL INFO',
             style: TextStyle(
@@ -853,24 +819,20 @@ class _ProfileDetailPageState extends State<ProfileDetailPage>
             ),
           ),
           const SizedBox(height: 10),
-          _infoRow(Icons.badge_outlined, 'NIM',
-              widget.member.nim, _gradient[0]),
-          const SizedBox(height: 10),
-          _infoRow(Icons.cake_outlined, 'Usia',
-              '${widget.member.age} tahun', _gradient[1]),
+          _infoRow(
+              Icons.badge_outlined, 'NIM', widget.member.nim, _gradient[0]),
           const SizedBox(height: 10),
           _infoRow(Icons.location_on_outlined, 'Kota Kelahiran',
               widget.member.city, const Color(0xFF00C896)),
           const SizedBox(height: 10),
-          _infoRow(Icons.school_outlined, 'Jurusan',
-              widget.member.major, const Color(0xFF4F8EF7)),
+          _infoRow(Icons.school_outlined, 'Jurusan', widget.member.major,
+              const Color(0xFF4F8EF7)),
         ],
       ),
     );
   }
 
-  Widget _infoRow(
-      IconData icon, String label, String value, Color color) {
+  Widget _infoRow(IconData icon, String label, String value, Color color) {
     return Container(
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
@@ -879,7 +841,7 @@ class _ProfileDetailPageState extends State<ProfileDetailPage>
         border: Border.all(color: _border, width: 1.5),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.03),
+            color: Colors.black.withValues(alpha: 0.03),
             blurRadius: 8,
             offset: const Offset(0, 2),
           ),
@@ -890,7 +852,7 @@ class _ProfileDetailPageState extends State<ProfileDetailPage>
           Container(
             padding: const EdgeInsets.all(10),
             decoration: BoxDecoration(
-              color: color.withOpacity(0.1),
+              color: color.withValues(alpha: 0.1),
               borderRadius: BorderRadius.circular(12),
             ),
             child: Icon(icon, color: color, size: 18),
@@ -916,7 +878,7 @@ class _ProfileDetailPageState extends State<ProfileDetailPage>
             ),
           ),
           Icon(Icons.chevron_right_rounded,
-              color: color.withOpacity(0.4), size: 18),
+              color: color.withValues(alpha: 0.4), size: 18),
         ],
       ),
     );
@@ -939,7 +901,6 @@ class _ProfileDetailPageState extends State<ProfileDetailPage>
             ),
           ),
           const SizedBox(height: 16),
-          // Hobby chips dengan warna berbeda tiap chip
           Wrap(
             spacing: 10,
             runSpacing: 10,
@@ -954,19 +915,20 @@ class _ProfileDetailPageState extends State<ProfileDetailPage>
               ];
               final color = colors[e.key % colors.length];
               return Container(
-                padding: const EdgeInsets.symmetric(
-                    horizontal: 16, vertical: 10),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
                 decoration: BoxDecoration(
-                  color: color.withOpacity(0.09),
+                  color: color.withValues(alpha: 0.09),
                   borderRadius: BorderRadius.circular(14),
-                  border: Border.all(
-                      color: color.withOpacity(0.25), width: 1.5),
+                  border:
+                      Border.all(color: color.withValues(alpha: 0.25), width: 1.5),
                 ),
                 child: Row(
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     Container(
-                      width: 6, height: 6,
+                      width: 6,
+                      height: 6,
                       decoration: BoxDecoration(
                         color: color,
                         shape: BoxShape.circle,
@@ -987,7 +949,6 @@ class _ProfileDetailPageState extends State<ProfileDetailPage>
             }).toList(),
           ),
           const SizedBox(height: 28),
-          // Fun fact card
           Container(
             padding: const EdgeInsets.all(22),
             decoration: BoxDecoration(
@@ -995,13 +956,13 @@ class _ProfileDetailPageState extends State<ProfileDetailPage>
                 begin: Alignment.topLeft,
                 end: Alignment.bottomRight,
                 colors: [
-                  _gradient[0].withOpacity(0.08),
-                  _gradient[1].withOpacity(0.04),
+                  _gradient[0].withValues(alpha: 0.08),
+                  _gradient[1].withValues(alpha: 0.04),
                 ],
               ),
               borderRadius: BorderRadius.circular(20),
               border: Border.all(
-                  color: _gradient[0].withOpacity(0.2), width: 1.5),
+                  color: _gradient[0].withValues(alpha: 0.2), width: 1.5),
             ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -1011,7 +972,7 @@ class _ProfileDetailPageState extends State<ProfileDetailPage>
                     Container(
                       padding: const EdgeInsets.all(8),
                       decoration: BoxDecoration(
-                        color: _gradient[0].withOpacity(0.15),
+                        color: _gradient[0].withValues(alpha: 0.15),
                         borderRadius: BorderRadius.circular(10),
                       ),
                       child: Text(widget.member.emoji,
@@ -1031,8 +992,8 @@ class _ProfileDetailPageState extends State<ProfileDetailPage>
                         ),
                         Text(
                           'about ${widget.member.name.split(' ').first}',
-                          style: TextStyle(
-                              fontSize: 12, color: _textSecondary),
+                          style:
+                              TextStyle(fontSize: 12, color: _textSecondary),
                         ),
                       ],
                     ),
@@ -1055,7 +1016,7 @@ class _ProfileDetailPageState extends State<ProfileDetailPage>
     );
   }
 
-  // ── VIDEO TAB ──
+  // ── VIDEO TAB (REAL VIDEO PLAYER) ──
   Widget _buildVideoTab() {
     return SingleChildScrollView(
       padding: const EdgeInsets.fromLTRB(20, 12, 20, 40),
@@ -1072,100 +1033,11 @@ class _ProfileDetailPageState extends State<ProfileDetailPage>
             ),
           ),
           const SizedBox(height: 14),
-          // Thumbnail
           ClipRRect(
             borderRadius: BorderRadius.circular(24),
-            child: Stack(
-              children: [
-                Image.asset(
-                  widget.member.imageUrl,
-                  height: 220,
-                  width: double.infinity,
-                  fit: BoxFit.cover,
-                ),
-                Positioned.fill(
-                  child: Container(
-                    decoration: BoxDecoration(
-                      gradient: LinearGradient(
-                        begin: Alignment.topCenter,
-                        end: Alignment.bottomCenter,
-                        colors: [
-                          _gradient[0].withOpacity(0.2),
-                          Colors.black.withOpacity(0.6),
-                        ],
-                      ),
-                    ),
-                  ),
-                ),
-                Positioned.fill(
-                  child: Center(
-                    child: Container(
-                      width: 64, height: 64,
-                      decoration: BoxDecoration(
-                        shape: BoxShape.circle,
-                        gradient: LinearGradient(colors: _gradient),
-                        boxShadow: [
-                          BoxShadow(
-                            color: _gradient[0].withOpacity(0.5),
-                            blurRadius: 20,
-                          ),
-                        ],
-                      ),
-                      child: const Icon(Icons.play_arrow_rounded,
-                          color: Colors.white, size: 36),
-                    ),
-                  ),
-                ),
-                Positioned(
-                  bottom: 14, left: 16,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        widget.member.name,
-                        style: const TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.w900,
-                          color: Colors.white,
-                          shadows: [Shadow(blurRadius: 8)],
-                        ),
-                      ),
-                      Text(
-                        widget.member.city,
-                        style: TextStyle(
-                          fontSize: 12,
-                          color: Colors.white.withOpacity(0.85),
-                          fontWeight: FontWeight.w600,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                // Duration badge
-                Positioned(
-                  top: 14, right: 14,
-                  child: Container(
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 10, vertical: 5),
-                    decoration: BoxDecoration(
-                      color: Colors.black.withOpacity(0.5),
-                      borderRadius: BorderRadius.circular(8),
-                    ),
-                    child: const Text(
-                      '2:30',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 11,
-                        fontWeight: FontWeight.w700,
-                      ),
-                    ),
-                  ),
-                ),
-              ],
-            ),
+            child: _VideoPlayerWidget(videoUrl: widget.member.videoUrl),
           ),
           const SizedBox(height: 16),
-          // Info note
           Container(
             padding: const EdgeInsets.all(16),
             decoration: BoxDecoration(
@@ -1178,10 +1050,10 @@ class _ProfileDetailPageState extends State<ProfileDetailPage>
                 Container(
                   padding: const EdgeInsets.all(8),
                   decoration: BoxDecoration(
-                    color: _gradient[0].withOpacity(0.1),
+                    color: _gradient[0].withValues(alpha: 0.1),
                     borderRadius: BorderRadius.circular(10),
                   ),
-                  child: Icon(Icons.info_outline_rounded,
+                  child: Icon(Icons.video_library_rounded,
                       color: _gradient[0], size: 18),
                 ),
                 const SizedBox(width: 12),
@@ -1190,7 +1062,7 @@ class _ProfileDetailPageState extends State<ProfileDetailPage>
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        'Coming Soon',
+                        'Video Perkenalan',
                         style: TextStyle(
                           fontSize: 13,
                           color: _textPrimary,
@@ -1198,7 +1070,7 @@ class _ProfileDetailPageState extends State<ProfileDetailPage>
                         ),
                       ),
                       Text(
-                        'Video introduction will be available soon!',
+                        'Video singkat tentang ${widget.member.name}',
                         style: TextStyle(
                           fontSize: 12,
                           color: _textSecondary,
@@ -1212,6 +1084,156 @@ class _ProfileDetailPageState extends State<ProfileDetailPage>
           ),
         ],
       ),
+    );
+  }
+}
+
+// ── VIDEO PLAYER WIDGET ──
+class _VideoPlayerWidget extends StatefulWidget {
+  final String videoUrl;
+  const _VideoPlayerWidget({required this.videoUrl});
+
+  @override
+  State<_VideoPlayerWidget> createState() => _VideoPlayerWidgetState();
+}
+
+class _VideoPlayerWidgetState extends State<_VideoPlayerWidget> {
+  late VideoPlayerController _controller;
+  bool _isInitialized = false;
+  bool _isError = false;
+
+  @override
+  void initState() {
+    super.initState();
+    _initVideo();
+  }
+
+  Future<void> _initVideo() async {
+    try {
+      _controller = VideoPlayerController.networkUrl(
+        Uri.parse(widget.videoUrl),
+      );
+      await _controller.initialize();
+      _controller.setLooping(true);
+      setState(() {
+        _isInitialized = true;
+      });
+    } catch (e) {
+      setState(() {
+        _isError = true;
+      });
+    }
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    if (_isError) {
+      return Container(
+        height: 220,
+        color: Colors.grey.shade200,
+        child: const Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Icon(Icons.error_outline, size: 48, color: Colors.grey),
+              SizedBox(height: 8),
+              Text('Video tidak tersedia'),
+            ],
+          ),
+        ),
+      );
+    }
+
+    if (!_isInitialized) {
+      return Container(
+        height: 220,
+        color: Colors.grey.shade200,
+        child: const Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              CircularProgressIndicator(),
+              SizedBox(height: 8),
+              Text('Memuat video...'),
+            ],
+          ),
+        ),
+      );
+    }
+
+    return Column(
+      children: [
+        AspectRatio(
+          aspectRatio: _controller.value.aspectRatio,
+          child: Stack(
+            alignment: Alignment.center,
+            children: [
+              VideoPlayer(_controller),
+              GestureDetector(
+                onTap: () {
+                  setState(() {
+                    _controller.value.isPlaying
+                        ? _controller.pause()
+                        : _controller.play();
+                  });
+                },
+                child: Container(
+                  width: 50,
+                  height: 50,
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    color: Colors.black.withValues(alpha: 0.5),
+                  ),
+                  child: Icon(
+                    _controller.value.isPlaying ? Icons.pause : Icons.play_arrow,
+                    color: Colors.white,
+                    size: 30,
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+        VideoProgressIndicator(_controller,
+            allowScrubbing: true,
+            colors: VideoProgressColors(
+              playedColor: const Color(0xFF00C896),
+              backgroundColor: Colors.grey.shade300,
+            )),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            IconButton(
+              icon: Icon(Icons.replay, color: const Color(0xFF00C896)),
+              onPressed: () {
+                _controller.seekTo(Duration.zero);
+                _controller.play();
+              },
+            ),
+            const SizedBox(width: 20),
+            IconButton(
+              icon: Icon(
+                _controller.value.isPlaying ? Icons.pause : Icons.play_arrow,
+                color: const Color(0xFF00C896),
+                size: 32,
+              ),
+              onPressed: () {
+                setState(() {
+                  _controller.value.isPlaying
+                      ? _controller.pause()
+                      : _controller.play();
+                });
+              },
+            ),
+          ],
+        ),
+      ],
     );
   }
 }
