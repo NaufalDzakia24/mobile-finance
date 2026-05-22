@@ -1,6 +1,8 @@
+import 'package:finance/screens/auth/login_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'screens/main_nav/main_navigation.dart';
+import 'screens/auth/login_screen.dart';
 
 void main() {
   SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
@@ -22,7 +24,7 @@ class MyApp extends StatelessWidget {
         fontFamily: 'Poppins', // Opsional: Tambahkan font Poppins di pubspec.yaml agar lebih mirip
         scaffoldBackgroundColor: const Color(0xFFF8F9FA),
       ),
-      home: const MainNavigation(),
+      home: const LoginScreen(),
     );
   }
 }

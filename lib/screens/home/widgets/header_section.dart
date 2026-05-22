@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'dart:convert'; // Wajib untuk menerjemahkan teks Base64 jadi gambar
+import 'package:shared_preferences/shared_preferences.dart'; // Wajib ditambahkan untuk mengambil email login
+
 import '../../../core/constants/app_colors.dart';
 import '../../../models/profile_model.dart';
 import '../../../core/database/database_helper.dart';
@@ -21,9 +23,15 @@ class _HeaderSectionState extends State<HeaderSection> {
     _loadProfile(); // Tarik data saat widget pertama kali muncul
   }
 
-  // 1. DATA FETCHER (Sinkronisasi Database)
+  // 1. DATA FETCHER (Sinkronisasi Database Berdasarkan Akun)
   Future<void> _loadProfile() async {
-    final data = await DatabaseHelper.instance.getProfile();
+    // Ambil email user yang sedang login dari memori lokal
+    final prefs = await SharedPreferences.getInstance();
+    final currentUserEmail = prefs.getString('userEmail') ?? '';
+
+    // Minta data profil khusus untuk email tersebut (Perbaikan Error ada di sini)
+    final data = await DatabaseHelper.instance.getProfile(currentUserEmail);
+    
     // 'mounted' memastikan kita nggak update tampilan kalau usernya udah pindah halaman
     if (mounted) {
       setState(() {
@@ -51,18 +59,19 @@ class _HeaderSectionState extends State<HeaderSection> {
           padding: const EdgeInsets.all(2), 
           decoration: BoxDecoration(
             shape: BoxShape.circle,
-            border: Border.all(color: AppColors.primaryGreen, width: 2), // Ring hijau indikator profil
+            // Ring hijau indikator profil (Pastikan AppColors.primaryGreen ada di file Anda)
+            border: Border.all(color: Colors.green, width: 2), 
           ),
           child: CircleAvatar(
             radius: 24,
-            backgroundColor: AppColors.primaryGreen.withOpacity(0.2),
+            backgroundColor: Colors.green.withOpacity(0.2),
             // Jika ada foto di database, tampilkan. Jika tidak, tetap null.
             backgroundImage: (_profile?.profilePicture ?? '').isNotEmpty
                 ? MemoryImage(base64Decode(_profile!.profilePicture))
                 : null,
             // Ikon default muncul jika foto di database kosong
             child: (_profile?.profilePicture ?? '').isEmpty
-                ? const Icon(Icons.person, size: 24, color: AppColors.primaryGreen)
+                ? const Icon(Icons.person, size: 24, color: Colors.green)
                 : null,
           ),
         ),
@@ -75,11 +84,11 @@ class _HeaderSectionState extends State<HeaderSection> {
             children: [
               Text(
                 _getGreeting(), // Memanggil sapaan dinamis (Pagi/Siang/Sore)
-                style: const TextStyle(color: AppColors.textGrey, fontSize: 14)
+                style: const TextStyle(color: Colors.grey, fontSize: 14)
               ),
               Text(
                 _profile?.nickname ?? 'Memuat...', // Menampilkan nama panggilan
-                style: const TextStyle(color: AppColors.textDark, fontSize: 18, fontWeight: FontWeight.bold),
+                style: const TextStyle(color: Colors.black87, fontSize: 18, fontWeight: FontWeight.bold),
                 maxLines: 1, 
                 overflow: TextOverflow.ellipsis, // Jika nama kepanjangan, dipotong dengan titik-titik (...)
               ),
@@ -95,7 +104,7 @@ class _HeaderSectionState extends State<HeaderSection> {
             shape: BoxShape.circle, 
             border: Border.all(color: Colors.grey.shade200)
           ),
-          child: const Icon(Icons.notifications_none, color: AppColors.textDark),
+          child: const Icon(Icons.notifications_none, color: Colors.black87),
         ),
       ],
     );

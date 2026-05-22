@@ -4,7 +4,7 @@ import '../home/home_screen.dart';
 import '../statistics/statistics_screen.dart';
 import '../goals/goals_screen.dart';
 import '../record/record_screen.dart';
-import '../profile/profile_screen.dart'; // 👈 Import ProfileScreen yang baru dibuat
+import '../profile/profile_screen.dart'; 
 
 class MainNavigation extends StatefulWidget {
   const MainNavigation({super.key});
