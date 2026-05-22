@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../core/database/database_helper.dart';
-import '../profile/profile_screen.dart'; // Ganti dengan path MainMenu / Dashboard Anda
 import 'register_screen.dart';
 import '../main_nav/main_navigation.dart'; // Ganti dengan path MainMenu / Dashboard Anda
 
@@ -22,7 +21,12 @@ class _LoginScreenState extends State<LoginScreen> {
     final password = _passwordCtrl.text;
 
     if (email.isEmpty || password.isEmpty) {
-      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Email dan Password tidak boleh kosong!'), backgroundColor: Colors.red));
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('Email dan Password tidak boleh kosong!'),
+          backgroundColor: Colors.red,
+        ),
+      );
       return;
     }
 
@@ -40,11 +44,18 @@ class _LoginScreenState extends State<LoginScreen> {
         // Pindah ke halaman utama dan hapus riwayat navigasi agar tidak bisa di-back ke layar login
         Navigator.pushReplacement(
           context,
-          MaterialPageRoute(builder: (context) => const MainNavigation()), // TODO: Arahkan ke Dashboard/BottomNavBar Anda
+          MaterialPageRoute(
+            builder: (context) => MainNavigation(),
+          ), // TODO: Arahkan ke Dashboard/BottomNavBar Anda
         );
       }
     } else {
-      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Email atau Password salah!'), backgroundColor: Colors.red));
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('Email atau Password salah!'),
+          backgroundColor: Colors.red,
+        ),
+      );
     }
   }
 
@@ -59,26 +70,54 @@ class _LoginScreenState extends State<LoginScreen> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const SizedBox(height: 40),
-              Center(child: Icon(Icons.account_balance_wallet, size: 80, color: Colors.green.shade400)), // Logo Aplikasi
+              Center(
+                child: Icon(
+                  Icons.account_balance_wallet,
+                  size: 80,
+                  color: Colors.green.shade400,
+                ),
+              ), // Logo Aplikasi
               const SizedBox(height: 32),
-              const Text('Selamat Datang!', style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold, color: Colors.black87)),
+              const Text(
+                'Selamat Datang!',
+                style: TextStyle(
+                  fontSize: 28,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.black87,
+                ),
+              ),
               const SizedBox(height: 8),
-              const Text('Silakan login untuk melanjutkan.', style: TextStyle(color: Colors.grey)),
+              const Text(
+                'Silakan login untuk melanjutkan.',
+                style: TextStyle(color: Colors.grey),
+              ),
               const SizedBox(height: 40),
 
               TextField(
                 controller: _emailCtrl,
                 keyboardType: TextInputType.emailAddress,
-                decoration: InputDecoration(labelText: 'Email', prefixIcon: const Icon(Icons.email_outlined), border: OutlineInputBorder(borderRadius: BorderRadius.circular(12))),
+                decoration: InputDecoration(
+                  labelText: 'Email',
+                  prefixIcon: const Icon(Icons.email_outlined),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                ),
               ),
               const SizedBox(height: 16),
               TextField(
                 controller: _passwordCtrl,
                 obscureText: _isObscure,
                 decoration: InputDecoration(
-                  labelText: 'Password', prefixIcon: const Icon(Icons.lock_outline), border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
+                  labelText: 'Password',
+                  prefixIcon: const Icon(Icons.lock_outline),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(12),
+                  ),
                   suffixIcon: IconButton(
-                    icon: Icon(_isObscure ? Icons.visibility_off : Icons.visibility),
+                    icon: Icon(
+                      _isObscure ? Icons.visibility_off : Icons.visibility,
+                    ),
                     onPressed: () => setState(() => _isObscure = !_isObscure),
                   ),
                 ),
@@ -86,25 +125,52 @@ class _LoginScreenState extends State<LoginScreen> {
               const SizedBox(height: 32),
 
               SizedBox(
-                width: double.infinity, height: 50,
+                width: double.infinity,
+                height: 50,
                 child: ElevatedButton(
                   onPressed: _login,
-                  style: ElevatedButton.styleFrom(backgroundColor: Colors.green, shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12))),
-                  child: const Text('Masuk', style: TextStyle(color: Colors.white, fontSize: 16, fontWeight: FontWeight.bold)),
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.green,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                  ),
+                  child: const Text(
+                    'Masuk',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
                 ),
               ),
               const SizedBox(height: 24),
-              
+
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  const Text("Belum punya akun? ", style: TextStyle(color: Colors.grey)),
+                  const Text(
+                    "Belum punya akun? ",
+                    style: TextStyle(color: Colors.grey),
+                  ),
                   GestureDetector(
-                    onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => const RegisterScreen())),
-                    child: const Text("Daftar sekarang", style: TextStyle(color: Colors.green, fontWeight: FontWeight.bold)),
+                    onTap: () => Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const RegisterScreen(),
+                      ),
+                    ),
+                    child: const Text(
+                      "Daftar sekarang",
+                      style: TextStyle(
+                        color: Colors.green,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
                   ),
                 ],
-              )
+              ),
             ],
           ),
         ),
