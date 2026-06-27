@@ -15,6 +15,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
   final _emailCtrl = TextEditingController();
   final _passwordCtrl = TextEditingController();
   bool _isObscure = true;
+  bool _isLoading = false;
 
   Future<void> _register() async {
     if (_nameCtrl.text.isEmpty || _emailCtrl.text.isEmpty || _passwordCtrl.text.isEmpty) {
@@ -22,20 +23,41 @@ class _RegisterScreenState extends State<RegisterScreen> {
       return;
     }
 
-    final newUser = UserModel(
-      name: _nameCtrl.text.trim(),
-      email: _emailCtrl.text.trim(),
-      password: _passwordCtrl.text, // Di aplikasi nyata, password harus di-hash
-    );
+    setState(() => _isLoading = true);
 
-    final result = await DatabaseHelper.instance.registerUser(newUser);
+    try {
+      final newUser = UserModel(
+        name: _nameCtrl.text.trim(),
+        email: _emailCtrl.text.trim(),
+        password: _passwordCtrl.text, // Di aplikasi nyata, password harus di-hash
+      );
 
-    if (result != -1) {
-      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Daftar Berhasil! Silakan Login.'), backgroundColor: Colors.green));
-      Navigator.pop(context); // Kembali ke halaman Login
-    } else {
-      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Email sudah terdaftar!'), backgroundColor: Colors.red));
+      final result = await DatabaseHelper.instance.registerUser(newUser);
+
+      if (!mounted) return;
+
+      if (result != -1) {
+        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Daftar Berhasil! Silakan Login.'), backgroundColor: Colors.green));
+        Navigator.pop(context); // Kembali ke halaman Login
+      } else {
+        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Email sudah terdaftar!'), backgroundColor: Colors.red));
+      }
+    } catch (e) {
+      if (!mounted) return;
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Terjadi error: $e'), backgroundColor: Colors.red),
+      );
+    } finally {
+      if (mounted) setState(() => _isLoading = false);
     }
+  }
+
+  @override
+  void dispose() {
+    _nameCtrl.dispose();
+    _emailCtrl.dispose();
+    _passwordCtrl.dispose();
+    super.dispose();
   }
 
   @override
@@ -82,9 +104,15 @@ class _RegisterScreenState extends State<RegisterScreen> {
             SizedBox(
               width: double.infinity, height: 50,
               child: ElevatedButton(
-                onPressed: _register,
+                onPressed: _isLoading ? null : _register,
                 style: ElevatedButton.styleFrom(backgroundColor: Colors.green, shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12))),
-                child: const Text('Daftar', style: TextStyle(color: Colors.white, fontSize: 16, fontWeight: FontWeight.bold)),
+                child: _isLoading
+                    ? const SizedBox(
+                        height: 20,
+                        width: 20,
+                        child: CircularProgressIndicator(color: Colors.white, strokeWidth: 2),
+                      )
+                    : const Text('Daftar', style: TextStyle(color: Colors.white, fontSize: 16, fontWeight: FontWeight.bold)),
               ),
             ),
           ],
