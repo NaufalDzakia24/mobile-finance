@@ -1,8 +1,15 @@
+import 'dart:math';
 import 'package:flutter/material.dart';
 import '../../core/constants/app_colors.dart';
 import 'tabs/max_min_tab.dart';
 import 'tabs/discount_tab.dart';
 import 'tabs/number_sequence_tab.dart';
+import 'tabs/bubble_sort_tab.dart';
+import 'tabs/selection_sort_tab.dart';
+import 'tabs/insertion_sort_tab.dart';
+import 'tabs/merge_sort_tab.dart';
+import 'tabs/quick_sort_tab.dart';
+import 'tabs/zodiac_tab.dart';
 
 class SmartCalculatorScreen extends StatefulWidget {
   const SmartCalculatorScreen({super.key});
@@ -19,6 +26,12 @@ class _SmartCalculatorScreenState extends State<SmartCalculatorScreen>
     _TabItem(icon: Icons.swap_vert_rounded, label: 'Max & Min'),
     _TabItem(icon: Icons.discount_outlined, label: 'Diskon'),
     _TabItem(icon: Icons.format_list_numbered_rounded, label: 'Bilangan'),
+    _TabItem(icon: Icons.bubble_chart, label: 'Bubble'),
+    _TabItem(icon: Icons.select_all, label: 'Selection'),
+    _TabItem(icon: Icons.input, label: 'Insertion'),
+    _TabItem(icon: Icons.merge_type, label: 'Merge'),
+    _TabItem(icon: Icons.flash_on, label: 'Quick'),
+    _TabItem(icon: Icons.stars, label: 'Zodiac'),
   ];
 
   @override
@@ -125,7 +138,7 @@ class _SmartCalculatorScreenState extends State<SmartCalculatorScreen>
           ),
           const SizedBox(height: 16),
 
-          // --- Custom Tab Bar ---
+          // --- Custom Tab Bar (FIXED) ---
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20),
             child: Container(
@@ -137,6 +150,8 @@ class _SmartCalculatorScreenState extends State<SmartCalculatorScreen>
               ),
               child: TabBar(
                 controller: _tabController,
+                isScrollable: true,
+                tabAlignment: TabAlignment.start,
                 indicator: BoxDecoration(
                   color: AppColors.primaryGreen,
                   borderRadius: BorderRadius.circular(10),
@@ -152,6 +167,8 @@ class _SmartCalculatorScreenState extends State<SmartCalculatorScreen>
                 dividerColor: Colors.transparent,
                 labelColor: Colors.white,
                 unselectedLabelColor: AppColors.textGrey,
+                labelPadding:
+                    const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
                 labelStyle: const TextStyle(
                     fontSize: 12, fontWeight: FontWeight.w600),
                 unselectedLabelStyle: const TextStyle(
@@ -161,6 +178,7 @@ class _SmartCalculatorScreenState extends State<SmartCalculatorScreen>
                       _tabController.index == _tabs.indexOf(tab);
                   return Tab(
                     child: Row(
+                      mainAxisSize: MainAxisSize.min,
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Icon(tab.icon,
@@ -169,12 +187,10 @@ class _SmartCalculatorScreenState extends State<SmartCalculatorScreen>
                                 ? Colors.white
                                 : AppColors.textGrey),
                         const SizedBox(width: 4),
-                        Flexible(
-                          child: Text(
-                            tab.label,
-                            overflow: TextOverflow.ellipsis,
-                            maxLines: 1,
-                          ),
+                        Text(
+                          tab.label,
+                          overflow: TextOverflow.ellipsis,
+                          maxLines: 1,
                         ),
                       ],
                     ),
@@ -193,6 +209,12 @@ class _SmartCalculatorScreenState extends State<SmartCalculatorScreen>
                 MaxMinTab(),
                 DiscountTab(),
                 NumberSequenceTab(),
+                BubbleSortTab(),
+                SelectionSortTab(),
+                InsertionSortTab(),
+                MergeSortTab(),
+                QuickSortTab(),
+                ZodiacTab(),
               ],
             ),
           ),
