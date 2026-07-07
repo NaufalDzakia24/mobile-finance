@@ -10,6 +10,7 @@ import 'tabs/insertion_sort_tab.dart';
 import 'tabs/merge_sort_tab.dart';
 import 'tabs/quick_sort_tab.dart';
 import 'tabs/zodiac_tab.dart';
+import 'tabs/bar_chart_tab.dart';
 
 class SmartCalculatorScreen extends StatefulWidget {
   const SmartCalculatorScreen({super.key});
@@ -32,6 +33,7 @@ class _SmartCalculatorScreenState extends State<SmartCalculatorScreen>
     _TabItem(icon: Icons.merge_type, label: 'Merge'),
     _TabItem(icon: Icons.flash_on, label: 'Quick'),
     _TabItem(icon: Icons.stars, label: 'Zodiac'),
+    _TabItem(icon: Icons.bar_chart, label: 'Bar Chart'),
   ];
 
   @override
@@ -215,6 +217,7 @@ class _SmartCalculatorScreenState extends State<SmartCalculatorScreen>
                 MergeSortTab(),
                 QuickSortTab(),
                 ZodiacTab(),
+                BarChartTab(),
               ],
             ),
           ),
